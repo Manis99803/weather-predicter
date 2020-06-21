@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Weather Predicter
+</title>
+<!-- "Icon made by Pixel perfect from www.flaticon.com" -->
+<link rel = "icon" href =  
+"season.svg" 
+        type = "image/x-icon">
+</head> 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+</style>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-#062737 w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;background:#062737" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container" style="background:#062737; color:#FFFFFF">
+    <h3 class="w3-padding-64"><b>Weather<br>Predicter</b></h3>
+  </div>
+  <div class="w3-bar-block" style="background:#062737; color:#FFFFFF">
+    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+    <a href="#geolocation" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">GeoLocation</a>
+    <a href="#weather" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Weather</a> 
+    <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Weather Predicter</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-jumbo"><b>Weather Predicter App</b></h1>
+    <h1 class="w3-xxxlarge w3-text-red" style="color:#062737!important"><b>Helps you in finding the latitude and longitude of a given place. Besides, this it also fetches the current weather at a given place</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+  </div>
+
+  <!-- Geolocation -->
+  <div class="w3-container" id="geolocation" style="margin-top:75px">
+    <h1 class="w3-xxxlarge" style="color:#062737"><b>Geo Location</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+      <div class="w3-section">
+      	<p id="errorMessage" style="color:red; display:none;"> Seems like you have entered a wrong city name </p> 
+        <label>City Name</label>
+        <input id="cityNameLatLon" class="w3-input w3-border" type="text" name="Name" required>
+      </div>
+      <div class="w3-section" id="geoLocationDiv" style="display:none;">
+        <ul class="w3-ul w3-light-grey">
+          <li class="w3-padding-16" id="responseCityName"></li>
+          <li class="w3-padding-16" id="responseLatitude"></li>
+          <li class="w3-padding-16" id="responseLongitude"></li>
+        </ul>
+      </div>
+      <button type="submit" class="w3-button w3-block w3-padding-large w3-margin-bottom" style="background:#062737;color:#FFFFFF" onclick="getLatLon()">Get City Coordinates</button>
+  </div>
+  
+
+  <!-- Weather Details -->
+  <div class="w3-container" id="weather" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text" style="font:#062737;"><b>Weather</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+      <div class="w3-section">
+       <label>City Name</label>
+       <input id="cityNameWeather" class="w3-input w3-border" type="text" name="Name" required >
+     </div>
+     <button type="submit" class="w3-button w3-block w3-padding-large w3-margin-bottom" style="background:#062737;color:#FFFFFF" onclick="getWeatherDetails()">Get Weather Details</button>
+  </div>
+
+  <div class="w3-row-padding" id = "weather_detail">
+    <div class="w3-full w3-margin-bottom" id="weatherDetails" style="display : none;">
+      <ul class="w3-ul w3-light-grey w3-center">
+        <li class="w3-dark-grey w3-xlarge w3-padding-32">Weather Details</li>
+        <li class="w3-padding-16" id="weatherCity"></li>
+        <li class="w3-padding-16" id="weatherMain"></li>
+        <li class="w3-padding-16" id="weatherDescription"></li>
+        <li class="w3-padding-16" id="weatherIcon"></li>
+        <li class="w3-padding-16" id="weatherId"></li>
+      </ul>
+    </div>
+    </div>
+
+      
+  
+  <!-- About -->
+  <div class="w3-container" id="about" style="margin-top:75px">
+    <h1 class="w3-xxxlarge" style="font:#062737;"><b>About</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+      <div class="w3-section">
+        <ul class="w3-ul w3-light-grey">
+          <li class="w3-padding-16"> <b> Name : </b> Manish Soni</li>
+          <li class="w3-padding-16"> <b> Email Id : </b> msoni6226@gmail.com</li>
+          <li class="w3-padding-16"> <b> Cisco User Name : </b> manisson</li>
+          <li class="w3-padding-16"> <b> Cisco Email Id : </b> manisson@cisco.com</li>
+        </ul>
+      </div>
+  </div>
+
+<!-- End page content -->
+</div>
+
+<!-- Container -->
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+function getLatLon(){
+	/* Function which makes an ajax request to the server to fetch latitude and longitude details */
+    var cityNameLatLon = document.getElementById("cityNameLatLon").value
+    if(cityNameLatLon != ''){
+      $.ajax({
+        url: "http://localhost:8080/api/lat-lon?cityName=" + cityNameLatLon,
+        type: 'GET',
+        success: function(res) {
+            var response = res;
+            document.getElementById("responseCityName").innerHTML = "<b> City : </b>" + response.cityName
+            document.getElementById("responseLatitude").innerHTML = "<b> Latitude : </b>" + response.latitude;
+            document.getElementById("responseLongitude").innerHTML = "<b> Longitude : </b>" + response.longitude;
+            document.getElementById("geoLocationDiv").style.display = "block"
+            document.getElementById("errorMessage").style.display = "none";
+        },
+        error: function(request, status, error){
+        	document.getElementById("geoLocationDiv").style.display = "none"
+        	document.getElementById("errorMessage").style.display = "block";
+        }
+      });
+    }
+  }
+
+function getWeatherDetails(){
+	/* Function which makes an ajax request to the server to fetch weather details of a given place */
+    var cityName = document.getElementById("cityNameWeather").value
+    console.log(cityName)
+    if(cityName != ''){
+      $.ajax({
+        url: "http://localhost:8080/api/weather-detail?cityName=" + cityName,
+        type: 'GET',
+        success: function(res) {
+            var response = res;
+            console.log(response);
+            document.getElementById("weatherCity").innerHTML = "<b> City : </b>" + response.cityName
+            document.getElementById("weatherMain").innerHTML = "<b> Main : </b>" + response.main;
+            document.getElementById("weatherDescription").innerHTML = "<b> Description : </b>" + response.description;
+            document.getElementById("weatherIcon").innerHTML = "<b> Icon : </b>" + response.icon;
+            document.getElementById("weatherId").innerHTML = "<b> Id : </b>" + response.id;
+            document.getElementById("weatherDetails").style.display = "block"
+        }
+      });
+    }
+  }
+  
+</script>
+
+</body>
+</html>
