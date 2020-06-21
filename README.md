@@ -27,3 +27,9 @@ response
     * HTTP status code: 200, 400
 
 Apache Tomcat server 9.0 version is used ans the same is setup in the Eclipse IDE as well.
+
+To run this application, following API are required:
+1. MapBox
+ * To get latitude and longitude of a place
+2. OpenWeather
+ * To get weather details for a particular place
