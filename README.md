@@ -5,7 +5,7 @@ The UI is developed using JavaScript, Jquery, Ajax, HTML and CSS. Ajax is used i
 The app is build following the REST paradigm.
 
 ## Two apis are defined:
-1. /api/lat-lon
+### 1. /api/lat-lon
   * Helpsingettingthelatitudeandlongitudeofagivenplace b. Ex:
     * http://localhost:8080/api/lat-lon?cityName=Bengaluru
     * Method: GET
@@ -18,7 +18,7 @@ response
     * In case of having zero entry in the response. User is asked
         to re-enter the city name.
   
-2. /api/weather-detail
+### 2. /api/weather-detail
   * Helpsingettingthedetailsabouttheweatheratagivenplace b. Ex:
     * http://localhost:8080/api/weather- detail?cityName=Bengaluru
     * Method: GET
